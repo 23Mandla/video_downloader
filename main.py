@@ -1,6 +1,4 @@
 import yt_dlp
-import json
-from tkinter import *
 from customtkinter import *
 
 class Download(CTk):
