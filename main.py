@@ -27,7 +27,7 @@ class Download(CTk):
         self.status = CTkLabel(self, text = "", font = ("Helvetica", 15))
         self.status.grid(row = 4, column = 0, columnspan = 2, pady = 20)
 
-        self.progress_label = CTkLabel(self, text="0%", text_color="blue")
+        self.progress_label = CTkLabel(self, text="", text_color="blue")
         self.progress_label.grid(row=5, column=0, columnspan=2, pady=10)
 
     def get_input(self):
@@ -36,8 +36,8 @@ class Download(CTk):
 
     def progress(self, dict):
         if dict['status'] == "downloading":
-            percent = dict['_percent_str'].split()[0]
-            self.progress_label.configure(text=f"Progress: {percent}")
+            percent = dict.get('_percent_str', '').strip()
+            self.progress_label.configure(text=f"Progress : {percent}")
             self.update_idletasks()
 
           
@@ -63,7 +63,6 @@ class Download(CTk):
             if info:
                 self.status.configure(text=f"Downloading... {info.get('fulltitle')}", text_color="green")
                 self.update_idletasks()
-                yt.download([self.url])
 
                 self.status.configure(text= f"Downloaded {info.get('fulltitle')}", text_color="green")
                 self.progress_label.configure(text = "Download complete!", text_color="green")
